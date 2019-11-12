@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+  <meta charset="UTF-8">
+  <title>Sistem Merekod Pinjaman Netbook</title>
+  <style>
+    th,
+    td {
+      padding: 10px;
+    }
+
+    .container {
+      margin: 0 auto;
+      width: 95%;
+    }
+  </style>
+</head>
+
+<body style="user-select: none;">
+  <div class="navbar-fixed">
+    <nav class="nav-extended">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s2"><a class="active" href="#pinjaman">Pinjaman</a></li>
+          <li class="tab col s2"><a href="#test2">Sedang Dipinjam</a></li>
+          <li class="tab col s2"><a href="#test3">Tamat Tempoh</a></li>
+          <li class="tab col s2"><a href="#test4">Tetapan</a></li>
+          <li class="tab col s4 disabled"><a href="#test4"><img src="logo.png" /></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div id="pinjaman" class="col s12">
+    <div class="container">
+      <div class="row">
+        <div class="col s8"></div>
+        <div class="col s4">
+          <div class="input-field col"><i class="material-icons prefix">date_range</i><input style="cursor: pointer;"
+              type="text" class="datepicker" readonly id="currentDate"></div>
+        </div>
+      </div>
+
+
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>No. K/P</th>
+            <th>Nama</th>
+            <th>No. Tel</th>
+            <th>Alamat</th>
+            <th>No. Netbook</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody id="tbodyPinjaman">
+          <tr>
+            <td>
+              <div class="input-field col s12">
+                <input maxlength="12" type="text" id="noKP" pattern=".{12,}" class="validate autocomplete"
+                  data-length="12"></div>
+            </td>
+            <td><textarea maxlength="80" id="nama" class="materialize-textarea"></textarea></td>
+            <td><input maxlength="15" type="text" id="noTel"></td>
+            <td><textarea maxlength="200" id="alamat" class="materialize-textarea" data-length="120"></textarea></td>
+            <td>
+              <div class="input-field col s12">
+                <select id="noNetbook">
+                </select>
+              </div>
+            </td>
+            <td><a id="save" class="waves-effect waves-light btn">Pinjam</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="test2" class="col s12">
+    <div class="container">
+      <div class="row">
+        <div class="col s8"></div>
+        <div class="col s4">
+          <input id="search" maxlength="12" type="text">
+          <label for="search">Masukkan No. K/P</label>
+        </div>
+      </div>
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>Tarikh</th>
+            <th>No. K/P</th>
+            <th>Nama</th>
+            <th>No. Tel</th>
+            <th>Alamat</th>
+            <th>No. Netbook</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody id="tbodySedangDipinjam">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="test3" class="col s12">
+    <div class="container">
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>Tarikh</th>
+            <th>No. K/P</th>
+            <th>Nama</th>
+            <th>No. Tel</th>
+            <th>Alamat</th>
+            <th>No. Netbook</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody id="tbodyTamatTempoh">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="test4" class="col s12">
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="tempohPinjam" maxlength="5 " type="text">
+          <label for="tempohPinjam">Tempoh Pinjaman</label>
+        </div>
+        <div class="input-field col s6">
+          <a id="saveTempohPinjaman" class="waves-effect waves-light btn">SIMPAN</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="addNetbook" maxlength="50" type="text">
+          <label for="addNetbook">Masukkan No Kod Netbook</label>
+        </div>
+        <div class="input-field col s6">
+          <a id="saveAddNetbook" class="waves-effect waves-light btn">SIMPAN</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6" id="divNoNetbookDelete">
+        </div>
+        <div class="input-field col s6">
+          <a id="deleteNoNetbook" class="waves-effect waves-light btn">PADAM</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s3">
+          <select id="monthCetak">
+            <option value="1" selected>Januari</option>
+            <option value="2">Februari</option>
+            <option value="3">Mac</option>
+            <option value="4">April</option>
+            <option value="5">Mei</option>
+            <option value="6">Jun</option>
+            <option value="7">Julai</option>
+            <option value="8">Ogos</option>
+            <option value="9">September</option>
+            <option value="10">Oktober</option>
+            <option value="11">November</option>
+            <option value="12">Disember</option>
+          </select>
+        </div>
+        <div class="input-field col s3">
+          <select id="yearCetak">
+          </select>
+        </div>
+        <div class="input-field col s6">
+          <a id="cetak" class="waves-effect waves-light btn">Cetak</a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script>
+      const path = __dirname + '/db.json'
+      const low = require('lowdb')
+      const FileSync = require('lowdb/adapters/FileSync')
+
+      const adapter = new FileSync(path)
+      const db = low(adapter)
+      const Excel = require('exceljs');
+      const { dialog } = require('electron').remote
+      const { remote } = require('electron')
+
+      //populate select option for yearCetak
+      let yearCetak = new Date().getFullYear()
+      for (let i = 2019; i <= yearCetak; i++) {
+        const el = document.createElement("option");
+        el.textContent = i;
+        el.value = i;
+        document.getElementById('yearCetak').appendChild(el);
+        if (i == yearCetak) {
+          M.FormSelect.init(document.querySelectorAll('#yearCetak'))
+        }
+      }
+
+
+      function cetakXlsx() {
+        let selectedMonth = document.getElementById('monthCetak').value
+        let selectedYear = document.getElementById('yearCetak').value
+        //buat select month year pastu button print
+        dialog.showSaveDialog(remote.getCurrentWindow(), {
+          defaultPath: `rekod pinjaman netbook bulan ${selectedMonth} ${selectedYear}`
+        }).then(result => {
+          if (!result.canceled) {
+            if (db.has(`${selectedYear}.${selectedMonth}`).value()) {
+              var workbook = new Excel.Workbook();
+              workbook.properties.date1904 = true;
+              var sheet = workbook.addWorksheet(`Bulan ${selectedMonth} ${selectedYear}`);
+              var worksheet = workbook.getWorksheet(1);
+
+              let no = 1
+              let senarai = db.get(`${selectedYear}.${selectedMonth}`).value()
+
+              //kepala tajuk dlm list
+              worksheet.getRow(1).getCell(1).value = 'no.'
+              worksheet.getRow(1).getCell(2).value = 'Tarikh'
+              worksheet.getRow(1).getCell(3).value = 'No. K/p'
+              worksheet.getRow(1).getCell(4).value = 'Nama'
+              worksheet.getRow(1).getCell(5).value = 'Alamat'
+              worksheet.getRow(1).getCell(6).value = 'No. Tel'
+              worksheet.getRow(1).getCell(7).value = 'No. Netbook'
+
+              Object.keys(senarai).forEach(function (key) {
+                Object.keys(senarai[key]).forEach(function (ic) {
+
+                  worksheet.getRow(no + 1).getCell(1).value = no
+                  worksheet.getRow(no + 1).getCell(2).value = `${key}hb`//tarikh pinjam
+                  worksheet.getRow(no + 1).getCell(3).value = ic
+                  worksheet.getRow(no + 1).getCell(4).value = db.get(`user.${ic}.nama`).value()//nama peminjam
+                  worksheet.getRow(no + 1).getCell(5).value = db.get(`user.${ic}.alamat`).value()
+                  worksheet.getRow(no + 1).getCell(6).value = db.get(`user.${ic}.noTel`).value()
+                  worksheet.getRow(no + 1).getCell(7).value = senarai[key][ic] //no netbook dipinjam
+
+                  worksheet.getRow().commit();
+                  no = no + 1
+
+                })
+              })
+
+              workbook.xlsx.writeFile(`${result.filePath}.xlsx`)
+                .then(function () {
+                  M.toast({ html: `File Excel Berjaya Dicipta di ${result.filePath}` })
+                });
+            } else {
+              M.toast({ html: `Tiada Rekod`, classes: 'red darken-1' })
+            }
+
+          }
+
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+
+      document.querySelector('#cetak').addEventListener('click', function (e) {
+        cetakXlsx()
+      })
+
+      db.defaults({ allNetbook: [], freeNetbook: [], notFreeNetbook: {}, user: {}, limitPinjaman: 14 })
+        .write();
+
+      let sedangDiPinjam1 = [];
+      //set current tamatTempoh
+      document.getElementById("tempohPinjam").value = db.get("limitPinjaman").value()
+
+      //generate list pengguna utk autocomplete IC
+      let listPenggunaOri = db.get("user").value()
+      let listPengguna = {}
+      Object.keys(listPenggunaOri).forEach(function (key) {
+        listPengguna[key] = null
+      })
+      //populate select noNetbook options
+      var select = document.getElementById("noNetbook");
+      var options = db.get('freeNetbook')
+        .value();
+
+      let limitPinjaman = db.get('limitPinjaman')
+        .value();
+
+      function renderSedangDipinjam() {
+        //clear sedang dipinjam
+        const removeOldtBody = document.getElementById("tbodySedangDipinjam");
+        while (removeOldtBody.childNodes.length > 1) {
+          removeOldtBody.removeChild(removeOldtBody.lastChild);
+        }
+        //clear tamat tempoh
+        const removeOldtBody1 = document.getElementById("tbodyTamatTempoh");
+        while (removeOldtBody1.childNodes.length > 1) {
+          removeOldtBody1.removeChild(removeOldtBody1.lastChild);
+        }
+        let listPinjaman = db.get("notFreeNetbook").value()
+        sedangDiPinjam1 = [];
+        Object.keys(listPinjaman).forEach(function (key) {
+          sedangDiPinjam1.push(listPinjaman[key].noKP)
+          let user = db.get(`user.${listPinjaman[key].noKP}`).value()
+          let timePinjam = Date.parse(`${listPinjaman[key].date.slice(3, 5)}-${listPinjaman[key].date.slice(0, 2)}-${listPinjaman[key].date.slice(6, 10)}`)
+          let today = new Date()
+
+          //render tamat tempoh
+          if (Math.floor((today - timePinjam) / (1000 * 60 * 60 * 24)) > limitPinjaman) {
+            const tr = document.createElement("tr");
+
+            tr.insertAdjacentHTML('afterbegin',
+              `<td>${listPinjaman[key].date}</td>` +
+              // create data noKP
+              `<td>${listPinjaman[key].noKP}</td>` +
+              // create data nama
+              `<td><textarea hidden class="materialize-textarea">${user.nama}</textarea><div>${user.nama}</div></td>` +
+              // create data noTel
+              `<td><input hidden value="${user.noTel}"><div>${user.noTel}</div></td>` +
+              // create data Alamat
+              `<td><textarea hidden class="materialize-textarea">${user.alamat}</textarea><div>${user.alamat}</div></td>` +
+              // create data noNetbook
+              `<td>${key}</td>` +
+              // create edit button
+              `<td><a class="waves-effect waves-light btn return">Pulangkan</a></td><td><a class="waves-effect waves-light btn renew">Renew</a></td>`
+            );
+
+            const tbody = document.getElementById("tbodyTamatTempoh");
+            tbody.appendChild(tr);
+
+          }
+          const tr = document.createElement("tr");
+          tr.id = listPinjaman[key].noKP;
+          tr.insertAdjacentHTML('afterbegin',
+            `<td>${listPinjaman[key].date}</td>` +
+            // create data noKP
+            `<td>${listPinjaman[key].noKP}</td>` +
+            // create data nama
+            `<td><textarea hidden class="materialize-textarea">${user.nama}</textarea><div>${user.nama}</div></td>` +
+            // create data noTel
+            `<td><input hidden value="${user.noTel}"><div>${user.noTel}</div></td>` +
+            // create data Alamat
+            `<td><textarea hidden class="materialize-textarea">${user.alamat}</textarea><div>${user.alamat}</div></td>` +
+            // create data noNetbook
+            `<td>${key}</td>` +
+            // create edit button
+            `<td><a class="waves-effect waves-light btn return">Pulangkan</a></td><td><a class="waves-effect waves-light btn renew">Renew</a></td>`
+          );
+
+          const tbody = document.getElementById("tbodySedangDipinjam");
+          tbody.appendChild(tr);
+        });
+      }
+      renderSedangDipinjam();
+      function renderCurrentDay() {
+        const tbody = document.getElementById("tbodyPinjaman");
+        while (tbody.childNodes.length > 2) {
+          tbody.removeChild(tbody.lastChild);
+        }
+        let currentDate = document.getElementById("currentDate").value;
+        if (currentDate.length != 10) {
+          currentDate = new Date(Date.now()).toLocaleString();
+        }
+        //tukar backgroud jdi merah jika bukan hari ini
+        if (currentDate.slice(0, 10) == new Date(Date.now()).toLocaleString().slice(0, 10)) {
+          document.getElementById("currentDate").style.background = 'transparent'
+        } else {
+          document.getElementById("currentDate").style.background = 'red'
+        }
+
+        if (db.has(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}.${currentDate.slice(0, 2)}`).value()) {
+          let currentDayList = db.get(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}.${currentDate.slice(0, 2)}`).value()
+          Object.keys(currentDayList).forEach(function (key) {
+            let user = db.get(`user.${[key]}`).value()
+
+            const tr = document.createElement("tr");
+
+            tr.insertAdjacentHTML('afterbegin',
+              // create data noKP
+              `<td>${key}</td>` +
+              // create data nama
+              `<td><textarea hidden class="materialize-textarea">${user.nama}</textarea><div>${user.nama}</div></td>` +
+              // create data noTel
+              `<td><input hidden value="${user.noTel}"><div>${user.noTel}</div></td>` +
+              // create data Alamat
+              `<td><textarea hidden class="materialize-textarea">${user.alamat}</textarea><div>${user.alamat}</div></td>` +
+              // create data noNetbook
+              `<td>${currentDayList[key]}</td>` +
+              // create edit button
+              `<td><a class="waves-effect waves-light btn ubah">UBAH</a><a style="visibility:hidden" class="btn waves-effect waves-light red cancel"> &nbsp; BATAL</a></td>`
+            );
+
+
+            const tbody = document.getElementById("tbodyPinjaman");
+            tbody.appendChild(tr);
+          });
+
+        }
+
+      }
+      renderCurrentDay()
+
+      function renderAvailableNetbook() {
+
+        options.sort()
+        //remove old option
+        while (select.firstChild) {
+          select.firstChild.remove();
+        }
+
+        const el2 = document.createElement("option");
+        el2.textContent = 'Pilih';
+        el2.value = '';
+        el2.disabled = true;
+        el2.selected = true;
+        select.appendChild(el2);
+        //add new option
+        for (let i = 0; i < options.length; i++) {
+          const el = document.createElement("option");
+          let opt = options[i];
+          el.textContent = opt;
+          el.value = opt;
+          select.appendChild(el);
+        }
+        M.FormSelect.init(document.querySelectorAll('#noNetbook'));
+
+        document.querySelector('#divNoNetbookDelete').innerHTML = "";
+        // Create a clone of element select
+        let clone = document.querySelector('#noNetbook').cloneNode(true);
+        // Change the id attribute of the newly created element:
+        clone.setAttribute('id', "noNetbookDelete");
+        // Append the newly created element 
+        document.querySelector('#divNoNetbookDelete').appendChild(clone);
+        const labelDelete = document.createElement('label');
+        labelDelete.innerText = "Pilih Netbook untuk dipadam";
+        document.querySelector('#divNoNetbookDelete').appendChild(labelDelete)
+        M.FormSelect.init(document.querySelectorAll('#noNetbookDelete'));
+      }
+
+      renderAvailableNetbook();
+
+      //filter input noKP noTel etc2
+      function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+          textbox.addEventListener(event, function () {
+            if (inputFilter(this.value)) {
+              this.oldValue = this.value;
+              this.oldSelectionStart = this.selectionStart;
+              this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+              this.value = this.oldValue;
+              this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            }
+          });
+        });
+      }
+      //limit number only
+      setInputFilter(document.getElementById("search"), function (value) {
+        return /^\d*$/.test(value)
+      });
+      setInputFilter(document.getElementById("noKP"), function (value) {
+        return /^\d*$/.test(value)
+      });
+      setInputFilter(document.getElementById("tempohPinjam"), function (value) {
+        return /^\d*$/.test(value)
+      });
+      setInputFilter(document.getElementById("noTel"), function (value) {
+        return /^\d*$/.test(value)
+      });
+      //pulangkan
+      function sedangDanTamatTempoh(e) {
+        const x = e.target.parentNode.parentNode;
+        let icNakDelete = x.childNodes[1].childNodes[0].textContent;
+        let netbookID = x.childNodes[5].childNodes[0].textContent;
+        if (e.target.className == 'waves-effect waves-light btn return') {
+
+
+          let xy = confirm(`Pulangkan netbook ${netbookID}?`);
+          if (xy) {
+            db.unset(`notFreeNetbook.${netbookID}`)
+              .write()
+            options.push(netbookID);
+            db.set('freeNetbook', options)
+              .write();
+            M.toast({ html: `${netbookID} Berjaya Dipulangkan` })
+
+            renderAvailableNetbook();
+            renderCurrentDay();
+            renderSedangDipinjam();
+
+          }
+        } else if (e.target.className == 'waves-effect waves-light btn renew') {
+          let xyz = confirm(`renew netbook ${netbookID}?`);
+          if (xyz) {
+            let harini = new Date(Date.now()).toLocaleString()
+            harini = harini.slice(0, 10)
+            db.set(`notFreeNetbook.${netbookID}`, { noKP: icNakDelete, date: harini })
+              .write();
+
+            if (!db.has(`${harini.slice(6, 10)}`).value()) {
+              db.set(`${harini.slice(6, 10)}`, {}).write()
+            }
+            if (!db.has(`${harini.slice(6, 10)}.${harini.slice(3, 5)}`).value()) {
+              db.set(`${harini.slice(6, 10)}.${harini.slice(3, 5)}`, {}).write()
+            }
+            if (!db.has(`${harini.slice(6, 10)}.${harini.slice(3, 5)}.${harini.slice(0, 2)}`).value()) {
+              let a = icNakDelete;
+              let b = netbookID;
+              let pinjamanList = {};
+              pinjamanList[a] = b;
+              db.set(`${harini.slice(6, 10)}.${harini.slice(3, 5)}.${harini.slice(0, 2)}`, pinjamanList).write()
+            } else {
+              let currentDayList = db.get(`${harini.slice(6, 10)}.${harini.slice(3, 5)}.${harini.slice(0, 2)}`).value()
+              let a = icNakDelete;
+              let b = netbookID;
+              currentDayList[a] = b;
+              db.set(`${harini.slice(6, 10)}.${harini.slice(3, 5)}.${harini.slice(0, 2)}`, currentDayList).write()
+            }
+            M.toast({ html: `${netbookID} Berjaya DiDaftarkan Semula` })
+            renderCurrentDay();
+            renderSedangDipinjam();
+
+          }
+        }
+
+      }
+
+      //search ic sedang dipinjam
+      document.querySelector('#search').addEventListener('keyup', function () {
+        if (document.querySelector('#search').value.length == 12) {
+          let elmnt = document.getElementById(document.querySelector('#search').value);
+          elmnt.scrollIntoView();
+          elmnt.style.background = 'yellow';
+          setTimeout(function () { elmnt.style.background = 'transparent'; }, 10000)
+        }
+      })
+
+      document.querySelector('#tbodySedangDipinjam').addEventListener('click', function (e) { sedangDanTamatTempoh(e) })
+      document.querySelector('#tbodyTamatTempoh').addEventListener('click', function (e) { sedangDanTamatTempoh(e) })
+
+      //simpan jumlah hari tempohPinjam
+      document.querySelector('#saveTempohPinjaman').addEventListener('click', function (e) {
+        if (document.getElementById("tempohPinjam").value == '') {
+          M.toast({ html: `Masukkan jumlah hari`, classes: 'red darken-1' })
+          document.getElementById("tempohPinjam").value = db.get("limitPinjaman").value()
+        }
+        else {
+          limitPinjaman = parseInt(document.getElementById("tempohPinjam").value)
+          db.set("limitPinjaman", limitPinjaman).write()
+          M.toast({ html: `Tempoh Pinjaman Ditukar ke ${limitPinjaman}` })
+          renderSedangDipinjam();
+        }
+      })
+      //add netbook baru
+      document.querySelector('#saveAddNetbook').addEventListener('click', function (e) {
+        let x = document.getElementById("addNetbook").value
+        let y = db.get('allNetbook')
+          .value();
+        if (y.includes(x)) {
+          M.toast({ html: `${x} sudah wujud`, classes: 'red darken-1' })
+        } else if (x == '') {
+          M.toast({ html: `sila masukkan no kod`, classes: 'red darken-1' })
+        }
+        else {
+          //add netbook ke dlm option n db
+          options.push(x)
+          db.set('freeNetbook', options)
+            .write();
+          y.push(x)
+          db.set('allNetbook', y)
+            .write();
+          document.getElementById("addNetbook").value = ''
+          M.toast({ html: `${x} Telah Dimasukkan` })
+          renderAvailableNetbook();
+
+        }
+
+      })
+      //delete noNetbook
+      document.querySelector('#deleteNoNetbook').addEventListener('click', function (e) {
+        let x = document.getElementById("noNetbookDelete").value
+        if (x != '') {
+          db.get('allNetbook').pull(x).write()
+          db.get('freeNetbook').pull(x).write()
+          M.toast({ html: `${x} Berjaya Dipadam` })
+          renderAvailableNetbook()
+        } else {
+          M.toast({ html: `sila pilih no netbook untuk dipadam`, classes: 'red darken-1' })
+        }
+
+      })
+      //add new data
+      document.querySelector('#tbodyPinjaman').addEventListener('click', function (e) {
+        const x = e.target.parentNode.parentNode;
+        if (e.target.id == 'save') {
+          const noKP = document.querySelector('#noKP')
+          const nama = document.querySelector('#nama')
+          const alamat = document.querySelector('#alamat')
+          const noTel = document.querySelector('#noTel')
+          const noNetbook = document.querySelector('#noNetbook')
+
+          if (noKP.value.length == 12 && nama.value != '' && alamat.value != '' && noNetbook.value != '' && noTel.value != '') {
+            //check kalo no ic dh guna
+            if (Object.values(sedangDiPinjam1).includes(noKP.value)) {
+              M.toast({ html: 'IC Telah digunakan', classes: 'red darken-1' })
+            } else {
+              sedangDiPinjam1.push(noKP.value)
+              let currentDate = document.getElementById("currentDate").value
+
+              const tr = document.createElement("tr");
+
+              tr.insertAdjacentHTML('afterbegin',
+                // create data noKP
+                `<td>${noKP.value}</td>` +
+                // create data nama
+                `<td><textarea hidden class="materialize-textarea">${nama.value}</textarea><div>${nama.value}</div></td>` +
+                // create data noTel
+                `<td><input hidden value="${noTel.value}"><div>${noTel.value}</div></td>` +
+                // create data Alamat
+                `<td><textarea hidden class="materialize-textarea">${alamat.value}</textarea><div>${alamat.value}</div></td>` +
+                // create data noNetbook
+                `<td>${noNetbook.value}</td>` +
+                // create edit button
+                `<td><a class="waves-effect waves-light btn ubah">UBAH</a><a style="visibility:hidden" class="btn waves-effect waves-light red cancel"> &nbsp; BATAL</a></td>`
+              );
+
+              const tbody = document.getElementById("tbodyPinjaman");
+              tbody.childNodes[1].after(tr);
+
+
+
+
+
+              //write to db
+              db.set(`user.${noKP.value}`, { "nama": `${nama.value}`, "noTel": `${noTel.value}`, "alamat": `${alamat.value}` })
+                .write()
+
+              //write nokp to date in db
+
+              if (!db.has(`${currentDate.slice(6, 10)}`).value()) {
+                db.set(`${currentDate.slice(6, 10)}`, {}).write()
+              }
+              if (!db.has(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}`).value()) {
+                db.set(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}`, {}).write()
+              }
+
+              if (!db.has(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}.${currentDate.slice(0, 2)}`).value()) {
+                let a = noKP.value;
+                let b = noNetbook.value;
+                let pinjamanList = {};
+                pinjamanList[a] = b;
+                db.set(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}.${currentDate.slice(0, 2)}`, pinjamanList).write()
+              } else {
+                let currentDayList = db.get(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}.${currentDate.slice(0, 2)}`).value()
+                let a = noKP.value;
+                let b = noNetbook.value;
+                currentDayList[a] = b;
+                db.set(`${currentDate.slice(6, 10)}.${currentDate.slice(3, 5)}.${currentDate.slice(0, 2)}`, currentDayList).write()
+              }
+
+              //remove used noNetbook and render NoNetbook
+              for (let ii = 0; ii < options.length; ii++) {
+                if (options[ii] == noNetbook.value) {
+                  let x = db.get('notFreeNetbook')
+                    .value();
+                  options.splice(ii, 1);
+                  db.set('freeNetbook', options)
+                    .write();
+                  x[noNetbook.value] = { "noKP": noKP.value, "date": currentDate };
+                  db.set('notFreeNetbook', x)
+                    .write();
+                  renderAvailableNetbook();
+                  break;
+                }
+              }
+              M.toast({ html: `${noKP.value} berjaya didaftar` })
+              //reset form
+              noKP.value = ''
+              nama.value = ''
+              alamat.value = ''
+              noTel.value = ''
+              //reset view form pinjam
+
+              M.textareaAutoResize(document.querySelector('#alamat'));
+              M.textareaAutoResize(document.querySelector('#nama'));
+              M.CharacterCounter.init(document.querySelectorAll('#noKP'));
+              renderSedangDipinjam()
+            }
+
+          }
+
+        } else if (e.target.className == 'waves-effect waves-light btn ubah') {
+
+          if (e.target.textContent == 'UBAH') {
+
+            x.childNodes[1].firstChild.hidden = false;
+            x.childNodes[1].childNodes[1].hidden = true;
+
+            x.childNodes[2].firstChild.hidden = false;
+            x.childNodes[2].childNodes[1].hidden = true;
+
+            x.childNodes[3].firstChild.hidden = false;
+            x.childNodes[3].childNodes[1].hidden = true;
+            x.childNodes[5].childNodes[1].style.visibility = "visible";
+            e.target.textContent = 'SIMPAN'
+
+            M.textareaAutoResize(x.childNodes[1].firstChild);
+            M.textareaAutoResize(x.childNodes[3].firstChild);
+
+          } else if (e.target.textContent == 'SIMPAN') {
+            //update data ke db
+            db.set(`user.${noKP.value}`, { "nama": `${x.childNodes[1].firstChild.value}`, "noTel": `${x.childNodes[2].firstChild.value}`, "alamat": `${x.childNodes[3].firstChild.value}` })
+              .write()
+
+            x.childNodes[1].firstChild.hidden = true;
+            x.childNodes[1].childNodes[1].textContent = x.childNodes[1].firstChild.value;
+            x.childNodes[1].childNodes[1].hidden = false;
+
+            x.childNodes[2].firstChild.hidden = true;
+            x.childNodes[2].childNodes[1].textContent = x.childNodes[2].firstChild.value;
+            x.childNodes[2].childNodes[1].hidden = false;
+
+            x.childNodes[3].firstChild.hidden = true;
+            x.childNodes[3].childNodes[1].textContent = x.childNodes[3].firstChild.value;
+            x.childNodes[3].childNodes[1].hidden = false;
+
+            x.childNodes[5].childNodes[1].style.visibility = "hidden";
+            x.childNodes[5].childNodes[0].textContent = "UBAH";
+          }
+
+
+
+        } else if (e.target.className == 'btn waves-effect waves-light red cancel') {
+          //cancel tukar balik ke ubah
+          x.childNodes[1].firstChild.hidden = true;
+          x.childNodes[1].childNodes[1].hidden = false;
+
+          x.childNodes[2].firstChild.hidden = true;
+          x.childNodes[2].childNodes[1].hidden = false;
+
+          x.childNodes[3].firstChild.hidden = true;
+          x.childNodes[3].childNodes[1].hidden = false;
+
+          x.childNodes[5].childNodes[1].style.visibility = "hidden";
+          x.childNodes[5].childNodes[0].textContent = "UBAH";
+        }
+      })
+
+      //initialize materialize
+      document.addEventListener('DOMContentLoaded', function () {
+        M.FormSelect.init(document.querySelectorAll('#monthCetak'))
+        M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+          setDefaultDate: true,
+          defaultDate: new Date(),
+          format: 'dd/mm/yyyy',
+          maxDate: new Date(),
+
+        });
+        M.Tabs.init(document.querySelectorAll('.tabs'));
+        M.CharacterCounter.init(document.querySelectorAll('#noKP'));
+
+        document.querySelector('.datepicker-done').addEventListener('click', function () {
+          renderCurrentDay()
+        });
+        M.Autocomplete.init(document.querySelector('.autocomplete'), {
+          onAutocomplete: function (e) {
+            document.querySelector('#nama').value = db.get(`user.${e}.nama`).value()
+            document.querySelector('#noTel').value = db.get(`user.${e}.noTel`).value()
+            document.querySelector('#alamat').value = db.get(`user.${e}.alamat`).value()
+          }, minLength: 6, data: listPengguna
+        });
+      });
+
+
+    </script>
+</body>
+
+</html>

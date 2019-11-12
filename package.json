@@ -1,0 +1,31 @@
+{
+  "name": "projeknik",
+  "productName": "Sistem Merekod Pinjaman Netbook",
+  "version": "1.0.0",
+  "description": "Sistem Rekod Pinjaman NetBook",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "01124136369 Kamil",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.12",
+    "electron-builder": "^21.2.0",
+    "electron-packager": "^14.0.6"
+  },
+  "dependencies": {
+    "exceljs": "^3.3.0",
+    "lowdb": "^1.0.0"
+  },
+  "build": {
+    "appId": "kamil.01124136369",
+    "mac": {
+      "category": "sistemrekod"
+    }
+  },
+  "postinstall": "electron-builder install-app-deps"
+}
